@@ -16,8 +16,8 @@
         }
         #video-container {
             position: relative;
-            max-width: 600px;
-            max-height: 600px; /* Limit height for scrolling */
+            width: 100%;
+            height: 100%;
             overflow: hidden;
         }
         .video-wrapper {
@@ -28,17 +28,20 @@
         }
         video {
             width: 100%;
-            height: auto;
-            max-height: 100vh;
+            height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+        }
+        video::-webkit-media-controls {
+            display: none !important;
         }
     </style>
+    
 </head>
 <body>
     <div id="video-container">
         <div class="video-wrapper">
             <video controls>
+                
                 <source src="vid/0.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -134,39 +137,34 @@
     </div>
 
     <script>
-        let videos = document.querySelectorAll('video');
-        let videoContainer = document.getElementById('video-container');
-
-        let currentVideoIndex = 0;
-        let startY = 0;
-        let currentY = 0;
-
-        videoContainer.addEventListener('touchstart', touchStart, false);
-        videoContainer.addEventListener('touchmove', touchMove, false);
-        videoContainer.addEventListener('touchend', touchEnd, false);
-
-        function touchStart(event) {
-            startY = event.touches[0].clientY;
+       window.onload = function() {
+            var videos = document.querySelectorAll('.video-wrapper video');
+            videos.forEach(function(video) {
+                if (video.requestFullscreen) {
+                    video.requestFullscreen();
+                } else if (video.mozRequestFullScreen) { /* Firefox */
+                    video.mozRequestFullScreen();
+                } else if (video.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                    video.webkitRequestFullscreen();
+                } else if (video.msRequestFullscreen) { /* IE/Edge */
+                    video.msRequestFullscreen();
+                }
+            });
         }
 
-        function touchMove(event) {
-            currentY = event.touches[0].clientY;
-        }
-
-        function touchEnd(event) {
-            let deltaY = startY - currentY;
-            if (deltaY > 50 && currentVideoIndex < videos.length - 1) {
-                currentVideoIndex++;
-            } else if (deltaY < -50 && currentVideoIndex > 0) {
-                currentVideoIndex--;
-            }
-            scrollToCurrentVideo();
-        }
-
-        function scrollToCurrentVideo() {
-            let newPosition = -currentVideoIndex * videoContainer.offsetHeight;
-            for (let video of videos) {
-                video.style.transform = `translateY(${newPosition}px)`;
+            function scrollToNextVideo() {
+            var videoContainer = document.getElementById('video-container');
+            var videos = document.querySelectorAll('.video-wrapper video');
+            var currentScroll = videoContainer.scrollTop;
+            var videoHeight = videos[0].offsetHeight; // Assuming all videos have the same height
+            var currentVideoIndex = Math.floor(currentScroll / videoHeight);
+            var nextVideoIndex = currentVideoIndex + 1;
+            if (nextVideoIndex < videos.length) {
+                var nextVideoTop = nextVideoIndex * videoHeight;
+                if (currentScroll >= nextVideoTop) {
+                    // Scroll to the top of the next video
+                    videoContainer.scrollTop = nextVideoTop;
+                }
             }
         }
     </script>
