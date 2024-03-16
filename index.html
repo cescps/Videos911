@@ -35,22 +35,20 @@
     </style>
 </head>
 <body>
-    <div id="video-container" onscroll="scrollToNextVideo()">
+     <div id="video-container">
         <div class="video-wrapper">
-            <video controls autoplay>
+            <video controls autoplay muted>
                 <source src="vid/1.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
         <!-- Add more videos here -->
         <div class="video-wrapper">
-            <video controls autoplay>
+            <video controls autoplay muted>
                 <source src="vid/2.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
-        <!-- Add more videos here up to 22.mp4 -->
-    </div>
 
     <script>
         function scrollToNextVideo() {
