@@ -38,9 +38,9 @@
     
 </head>
 <body>
-    <div id="video-container">
+    <div id="video-container" onscroll="scrollToNextVideo()">
         <div class="video-wrapper">
-            <video controls>
+            <video controls autoplay>
                 
                 <source src="vid/0.mp4" type="video/mp4">
                 Your browser does not support the video tag.
@@ -137,22 +137,7 @@
     </div>
 
     <script>
-       window.onload = function() {
-            var videos = document.querySelectorAll('.video-wrapper video');
-            videos.forEach(function(video) {
-                if (video.requestFullscreen) {
-                    video.requestFullscreen();
-                } else if (video.mozRequestFullScreen) { /* Firefox */
-                    video.mozRequestFullScreen();
-                } else if (video.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-                    video.webkitRequestFullscreen();
-                } else if (video.msRequestFullscreen) { /* IE/Edge */
-                    video.msRequestFullscreen();
-                }
-            });
-        }
-
-            function scrollToNextVideo() {
+        function scrollToNextVideo() {
             var videoContainer = document.getElementById('video-container');
             var videos = document.querySelectorAll('.video-wrapper video');
             var currentScroll = videoContainer.scrollTop;
