@@ -18,138 +18,50 @@
             position: relative;
             width: 100%;
             height: 100%;
-            overflow: hidden;
+            overflow-y: auto;
         }
         .video-wrapper {
             width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
+            height: auto;
         }
         video {
             width: 100%;
-            height: 100%;
+            height: auto;
             object-fit: cover;
         }
         video::-webkit-media-controls {
             display: none !important;
         }
     </style>
-    
 </head>
 <body>
     <div id="video-container" onscroll="scrollToNextVideo()">
         <div class="video-wrapper">
             <video controls autoplay>
-                
-                <source src="vid/0.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-             <video controls>
                 <source src="vid/1.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
-            <video controls>
+        </div>
+        <!-- Add more videos here -->
+        <div class="video-wrapper">
+            <video controls autoplay>
                 <source src="vid/2.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
-            <video controls>
-                <source src="vid/3.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <video controls>
-                <source src="vid/4.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <video controls>
-                <source src="vid/5.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <video controls>
-                <source src="vid/6.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <video controls>
-                <source src="vid/7.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <video controls>
-                <source src="vid/8.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <video controls>
-                <source src="vid/9.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <video controls>
-                <source src="vid/10.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <video controls>
-                <source src="vid/11.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <video controls>
-                <source src="vid/12.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <video controls>
-                <source src="vid/13.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <video controls>
-                <source src="vid/14.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <video controls>
-                <source src="vid/15.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <video controls>
-                <source src="vid/16.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <video controls>
-                <source src="vid/17.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <video controls>
-                <source src="vid/18.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <video controls>
-                <source src="vid/19.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <video controls>
-                <source src="vid/20.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <video controls>
-                <source src="vid/21.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <video controls>
-                <source src="vid/22.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
         </div>
+        <!-- Add more videos here up to 22.mp4 -->
     </div>
 
     <script>
         function scrollToNextVideo() {
             var videoContainer = document.getElementById('video-container');
-            var videos = document.querySelectorAll('.video-wrapper video');
             var currentScroll = videoContainer.scrollTop;
-            var videoHeight = videos[0].offsetHeight; // Assuming all videos have the same height
+            var videoHeight = videoContainer.clientHeight; // Height of the video container
             var currentVideoIndex = Math.floor(currentScroll / videoHeight);
-            var nextVideoIndex = currentVideoIndex + 1;
-            if (nextVideoIndex < videos.length) {
-                var nextVideoTop = nextVideoIndex * videoHeight;
-                if (currentScroll >= nextVideoTop) {
-                    // Scroll to the top of the next video
-                    videoContainer.scrollTop = nextVideoTop;
-                }
+            var nextVideoTop = (currentVideoIndex + 1) * videoHeight;
+            if (currentScroll >= nextVideoTop) {
+                // Scroll to the top of the next video
+                videoContainer.scrollTop = nextVideoTop;
             }
         }
     </script>
